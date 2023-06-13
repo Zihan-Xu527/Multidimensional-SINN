@@ -20,3 +20,4 @@ class SINN(nn.Module):
     def forward(self, x, state=None):
         x, (h, c) = self.lstm(self.dropout(x), state)
         return self.readout(x), (h, c)
+
