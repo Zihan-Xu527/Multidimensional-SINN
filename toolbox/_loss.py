@@ -96,63 +96,64 @@ class StatLoss(_Loss, metaclass=ABCMeta):
     
     @staticmethod
     def ccf(x, lags=None, method='fft'):
-        corr = torch.zeros((x.shape[0], x.shape[2]**2), device=x.device)
+        corr = torch.zeros((x.shape[0], x.shape[2]*(x.shape[2]-1)), device=x.device)
         mean = (x.mean(axis=0)).mean(axis=0)
         x_tmp = x - mean[None,None,...]
         n = 0
         for j in range(x_tmp.size()[2]):
             x = x_tmp[...,j]
             for k in range(x_tmp.size()[2]):
-                y = x_tmp[...,k]
-                if method == 'fft':
-                    f = torch.fft.fft(x, x.shape[0] * 2 - 1, dim=0)
-                    g = torch.fft.fft(y, y.shape[0] * 2 - 1, dim=0)
-                    ccf = torch.fft.ifft(
-                        f * g.conj(), dim=0
-                    ).real[
-                        :x.shape[0]
-                    ].mean(axis=1)
+                if j != k:
+                    y = x_tmp[...,k]
+                    if method == 'fft':
+                        f = torch.fft.fft(x, x.shape[0] * 2 - 1, dim=0)
+                        g = torch.fft.fft(y, y.shape[0] * 2 - 1, dim=0)
+                        ccf = torch.fft.ifft(
+                            f * g.conj(), dim=0
+                        ).real[
+                            :x.shape[0]
+                        ].mean(axis=1)
 
-                    acf_f = torch.fft.ifft(
-                        f * f.conj(), dim=0
-                    ).real[
-                        :x.shape[0]
-                    ].mean(axis=1)
+                        acf_f = torch.fft.ifft(
+                            f * f.conj(), dim=0
+                        ).real[
+                            :x.shape[0]
+                        ].mean(axis=1)
                     
-                    acf_g = torch.fft.ifft(
-                        g * g.conj(), dim=0
-                    ).real[
-                        :y.shape[0]
-                    ].mean(axis=1)
+                        acf_g = torch.fft.ifft(
+                            g * g.conj(), dim=0
+                        ).real[
+                            :y.shape[0]
+                        ].mean(axis=1)
                     
-                    corr[...,n] = ccf[:lags, ...] / torch.sqrt(acf_f[0, ...])/ torch.sqrt(acf_g[0,...])
-                    n += 1
-                elif method == 'bruteforce':
-                    if lags is None:
-                        lags = torch.arange(x.shape[0])
-                    elif isinstance(lags, int):
-                        lags = torch.arange(lags)
-                    else:
-                        lags = lags.clone().detach()
-                    corr_tmp = torch.zeros((len(lags), *x.shape[2:]), device=x.device)
-                    for i, lag in enumerate(lags):
-                        if lag == 0:
-                            u = x
-                            v = y
-                        elif lag < x.shape[0]:
-                            u, v = x[:-lag, ...], y[lag:, ...]
+                        corr[...,n] = ccf[:lags, ...] / torch.sqrt(acf_f[0, ...])/ torch.sqrt(acf_g[0,...])
+                        n += 1
+                    elif method == 'bruteforce':
+                        if lags is None:
+                            lags = torch.arange(x.shape[0])
+                        elif isinstance(lags, int):
+                            lags = torch.arange(lags)
                         else:
-                            continue
-                        corr_tmp[i, ...] = torch.sum(u * v, axis=[0, 1]) / (
-                            torch.sqrt(
-                                torch.sum(torch.square(x), axis=[0, 1]) *
-                                torch.sum(torch.square(y), axis=[0, 1])
+                            lags = lags.clone().detach()
+                        corr_tmp = torch.zeros((len(lags), *x.shape[2:]), device=x.device)
+                        for i, lag in enumerate(lags):
+                            if lag == 0:
+                                u = x
+                                v = y
+                            elif lag < x.shape[0]:
+                                u, v = x[:-lag, ...], y[lag:, ...]
+                            else:
+                                continue
+                            corr_tmp[i, ...] = torch.sum(u * v, axis=[0, 1]) / (
+                                torch.sqrt(
+                                    torch.sum(torch.square(x), axis=[0, 1]) *
+                                    torch.sum(torch.square(y), axis=[0, 1])
+                                )
                             )
-                        )
-                    corr[...,n] = corr_tmp  
-                    n += 1
-                else:
-                    raise NotImplementedError(f'Unknown method {method}.')
+                        corr[...,n] = corr_tmp  
+                        n += 1
+                    else:
+                        raise NotImplementedError(f'Unknown method {method}.')
         return corr
     
     @staticmethod
