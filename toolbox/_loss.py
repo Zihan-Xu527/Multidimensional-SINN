@@ -171,35 +171,38 @@ class StatLoss(_Loss, metaclass=ABCMeta):
 #         f = np.reshape(kernel(positions).T, xx.shape)
 #         return torch.from_numpy(f).to(x.device)
 
-#     @staticmethod
-#     def gauss_kde2D(x, lower, upper, n, bw):
-#         pdf = torch.zeros((n, n), device=x.device)
-#         x_tmp = torch.ravel(x[...,0])
-#         y_tmp = torch.ravel(x[...,1])
-#         X=torch.cat((x_tmp,y_tmp),0)
-#         X=torch.reshape(X,(2,len(x_tmp)))
-#         x_grid = torch.linspace(lower, upper, n, device=x.device)
-#         y_grid = torch.linspace(lower, upper, n, device=x.device)
-#         if bw is None:
-#             bwp = len(x_tmp)**(-1 / 5)
-#         else:
-#             bwp = len(x_tmp)**(-1 / bw)
-#         norm_factor = (2 * np.pi) * len(x_tmp) * bwp
-#         for i in range(n):
-#             for j in range(n):
-#                 grid_x = torch.tensor([x_grid[i]], device=x.device)
-#                 grid_y = torch.tensor([y_grid[j]], device=x.device)
-#                 pdf[i,j] = torch.sum(torch.exp(-0.5*torch.square(
-#                     (x_tmp[:,None]-torch.repeat_interleave(grid_x, len(x_tmp)))/bwp))*torch.exp(-0.5*torch.square(
-#                     (y_tmp[:,None]-torch.repeat_interleave(grid_y, len(y_tmp)))/bwp)),axis=0 )/ norm_factor
-#         return pdf       
     @staticmethod
     def gauss_kde2D(x, lower, upper, n, bw):
-        pdf = torch.zeros((n, 2), device=x.device)
+        pdf = torch.zeros((n, n), device=x.device)
+        x_tmp = torch.ravel(x[...,0])
+        y_tmp = torch.ravel(x[...,1])
+        x_grid = torch.linspace(lower, upper, n, device=x.device)
+        y_grid = torch.linspace(lower, upper, n, device=x.device)
+        if bw is None:
+            bwp = len(x_tmp)**(-1 / 5)
+        else:
+            bwp = len(x_tmp)**(-1 / bw)
+        norm_factor = (2 * np.pi) * len(x_tmp) * bwp * bwp 
+        x_square = torch.square(x_tmp[:,None]-x_grid[None,:])
+        for i in range(n):
+            sum_square = x_square + torch.square(y_tmp[:,None]-y_grid[i])
+            pdf[...,i] = torch.sum(
+                torch.exp( -0.5 * ( sum_square ) / (bwp * bwp)
+                         )
+                ,axis=0 )/ norm_factor
+        return pdf
+    
+    @staticmethod
+    def gauss_kde2(x, lower, upper, n, bw):
+        pdf = torch.zeros((n, 6), device=x.device)
         x_tmp = torch.ravel(x[...,0])
         y_tmp = torch.ravel(x[...,1])
         xy_sum = x_tmp+y_tmp
         xy_diff = x_tmp-y_tmp
+        xy_sum1 = x_tmp+y_tmp*2
+        xy_diff1 = x_tmp-y_tmp*2 
+        xy_sum2 = 2*x_tmp+y_tmp
+        xy_diff2 = 2*x_tmp-y_tmp
         grid = torch.linspace(lower, upper, n, device=x.device)
         if bw is None:
             bwp = len(x_tmp)**(-1 / 5)
@@ -223,7 +226,39 @@ class StatLoss(_Loss, metaclass=ABCMeta):
                 ),
                 axis=0
             ) / norm_factor
-        return pdf  
+        pdf[...,2]=torch.sum(
+                torch.exp(
+                    -0.5 * torch.square(
+                        (xy_sum1[:, None] - grid[None, :]) / bwp
+                    )
+                ),
+                axis=0
+            ) / norm_factor
+        pdf[...,3]=torch.sum(
+                torch.exp(
+                    -0.5 * torch.square(
+                        (xy_diff1[:, None] - grid[None, :]) / bwp
+                    )
+                ),
+                axis=0
+            ) / norm_factor
+        pdf[...,4]=torch.sum(
+                torch.exp(
+                    -0.5 * torch.square(
+                        (xy_sum2[:, None] - grid[None, :]) / bwp
+                    )
+                ),
+                axis=0
+            ) / norm_factor
+        pdf[...,5]=torch.sum(
+                torch.exp(
+                    -0.5 * torch.square(
+                        (xy_diff2[:, None] - grid[None, :]) / bwp
+                    )
+                ),
+                axis=0
+            ) / norm_factor
+        return pdf    
     
     @staticmethod
     def gauss_kde(x, lower, upper, n, bw):
@@ -460,7 +495,37 @@ class DensityLoss(StatLoss):
             input, lower=self.lower, upper=self.upper, n=self.n, bw=self.bw
         )
         return self._loss(_input, self._target)
+    
+class DensityLoss2(StatLoss):
 
+    @classmethod
+    def from_empirical_data(cls, data, lower, upper, n, bw, **options):
+        '''Create target PDF from a number of empirically observed trajectories.
+
+        Parameters
+        ----------
+        input: tensor of any shape
+            The empirically observed trajectories.
+        options: keyword argument list
+            To be forwarded to `__init__`.
+        '''
+        return cls(
+            cls.gauss_kde2(data, lower=lower, upper=upper, n=n, bw=bw),
+            **options, lower=lower, upper=upper, n=n, bw=bw
+        )
+
+    def forward(self, input):
+        '''
+        Parameters
+        ----------
+        input: tensor of any shape
+            The input trajectory as generated by an NN.
+        '''
+        _input = self.gauss_kde2(
+            input, lower=self.lower, upper=self.upper, n=self.n, bw=self.bw
+        )
+        return self._loss(_input, self._target)
+    
 class DensityLoss2D(StatLoss):
 
     @classmethod
@@ -513,6 +578,8 @@ def make_loss(stat, data, loss_type=['mse_loss', 'l1_loss'], **kwargs):
     '''
     if stat == 'pdf':
         loss_cls = DensityLoss
+    elif stat == 'pdf2':
+        loss_cls = DensityLoss2
     elif stat == 'pdf2D':
         loss_cls = DensityLoss2D
     elif stat == 'acf[fft]':
