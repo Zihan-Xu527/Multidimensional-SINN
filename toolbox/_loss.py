@@ -790,7 +790,8 @@ class DensityLoss2D(StatLoss):
         )
         return self._loss(_input, self._target)
     
-def make_loss(stat, data, loss_type=['mse_loss', 'l1_loss'], **kwargs):
+# def make_loss(stat, data, loss_type=['mse_loss', 'l1_loss'], **kwargs):
+def make_loss(stat, data, loss_type=['mse_loss'], **kwargs):
     '''
     Create a loss function.
 
