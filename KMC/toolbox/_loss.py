@@ -167,6 +167,7 @@ class StatLoss(_Loss, metaclass=ABCMeta):
         y_tmp = torch.ravel(x[...,1])
         x_grid = torch.linspace(lower, upper, n, device=x.device)
         y_grid = torch.linspace(lower, upper, n, device=x.device)
+   
         if bw is None:
             bwp = len(x_tmp)**(-1 / 6)
         else:
@@ -180,40 +181,30 @@ class StatLoss(_Loss, metaclass=ABCMeta):
                          )
                 ,axis=0 )/ norm_factor
         return pdf
-
-
-#     def gauss_kde2D(x, lower, upper, n, bw=None):
-#         # Initialize the PDF grid
+#     def gauss_kde2D(x, lower, upper, n, bw):
 #         pdf = torch.zeros((n, n), device=x.device)
-    
-#         # Flatten x and y values from the input data
-#         x_tmp = torch.ravel(x[..., 0])
-#         y_tmp = torch.ravel(x[..., 1])
-    
-#         # Generate the grid for x and y
+#         x_tmp = torch.ravel(x[...,0])
+#         y_tmp = torch.ravel(x[...,1])
 #         x_grid = torch.linspace(lower, upper, n, device=x.device)
 #         y_grid = torch.linspace(lower, upper, n, device=x.device)
-    
-#         # Determine bandwidth using Scott's rule if not provided
+#         # Compute actual data range for both x and y
+#         data_range_x = torch.max(x_tmp) - torch.min(x_tmp)
+#         data_range_y = torch.max(y_tmp) - torch.min(y_tmp)
+
 #         if bw is None:
-#             bwp = len(x_tmp) ** (-1 / 6)  # Scott's rule for 2D KDE
+#             bw_x = len(x_tmp)**(-1 / 6) * data_range_x
+#             bw_y = len(y_tmp)**(-1 / 6) * data_range_y
 #         else:
-#             bwp = len(x_tmp)**(-1 / bw)
-    
-#         # Compute the normalization factor
-#         norm_factor = (2 * np.pi * bwp**2) * len(x_tmp)
-    
-#         # Create meshgrid for vectorized distance computation
-#         x_square = torch.square(x_tmp[:, None] - x_grid[None, :])
-#         y_square = torch.square(y_tmp[:, None] - y_grid[None, :])
-    
-#         # Compute the full PDF using vectorized operations
+#             bw_x = len(x_tmp)**(-1 / bw) * data_range_x
+#             bw_y = len(x_tmp)**(-1 / bw) * data_range_y
+#         norm_factor = (2 * np.pi) * len(x_tmp) * bw_x * bw_y 
+#         x_square = torch.square(x_tmp[:,None]-x_grid[None,:])
 #         for i in range(n):
-#             sum_square = x_square + y_square[:, i][:, None]
-#             pdf[..., i] = torch.sum(
-#                 torch.exp(-0.5 * sum_square / (bwp * bwp)), axis=0
-#             ) / norm_factor
-    
+#             sum_square = x_square + torch.square(y_tmp[:,None]-y_grid[i])
+#             pdf[...,i] = torch.sum(
+#                 torch.exp( -0.5 * ( sum_square ) / (bw_x * bw_y)
+#                          )
+#                 ,axis=0 )/ norm_factor
 #         return pdf
 
 
@@ -351,8 +342,8 @@ class StatLoss(_Loss, metaclass=ABCMeta):
         xy_diff = x_tmp-y_tmp
         xy_sum1 = x_tmp+y_tmp*2
         xy_diff1 = x_tmp-y_tmp*2 
-        xy_sum2 = 2*x_tmp+y_tmp
-        xy_diff2 = 2*x_tmp-y_tmp
+        xy_sum2 = 1.5*x_tmp+y_tmp
+        xy_diff2 = 1.5*x_tmp-y_tmp
         grid = torch.linspace(lower, upper, n, device=x.device)
         if bw is None:
             bwp = len(x_tmp)**(-1 / 5)
