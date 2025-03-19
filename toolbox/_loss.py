@@ -168,7 +168,7 @@ class StatLoss(_Loss, metaclass=ABCMeta):
         x_grid = torch.linspace(lower, upper, n, device=x.device)
         y_grid = torch.linspace(lower, upper, n, device=x.device)
         if bw is None:
-            bwp = len(x_tmp)**(-1 / 5)
+            bwp = len(x_tmp)**(-1 / 6)
         else:
             bwp = len(x_tmp)**(-1 / bw)
         norm_factor = (2 * np.pi) * len(x_tmp) * bwp * bwp 
