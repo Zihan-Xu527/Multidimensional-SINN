@@ -1,0 +1,73 @@
+{
+  "schema_version": 3,
+  "lambda": 2.0,
+  "tag": "lam2",
+  "n_traj": 20000,
+  "L_seq": 200,
+  "split": {
+    "fit": [
+      0,
+      400
+    ],
+    "reference": [
+      400,
+      4000
+    ],
+    "validation": [
+      4000,
+      8000
+    ],
+    "evaluation": [
+      8000,
+      20000
+    ]
+  },
+  "n_held_out_blocks": 9,
+  "mu": [
+    0.0013126217270043867,
+    -0.005187355895704331
+  ],
+  "scale": [
+    0.5927375925211965,
+    0.6232841086470684
+  ],
+  "proj_scales": [
+    1.7359205518523404,
+    0.9932672538932733,
+    2.650818802688466,
+    1.7242852650629863,
+    2.650818802688451,
+    1.7242852650630094
+  ],
+  "holdout_scales": [
+    3.611130084479113,
+    2.6381318225156916,
+    2.638131822515732,
+    3.6111300844790835
+  ],
+  "bandwidth_1d": 0.1045639552591273,
+  "bandwidth_2d": 0.15234153789450827,
+  "k_lags": 200,
+  "kernel": "gaussian, isotropic, h = (L*B)^(-1/(d+4)); analytic reference convolved with the same kernel before comparison",
+  "ccf_mode": "relative",
+  "estimator_version": 1,
+  "proj_aggregation": "concat-2nf-then-normalized-mse",
+  "analytic_moments": {
+    "var1": 0.3588480348566114,
+    "var2": 0.39838419937054675,
+    "std1": 0.5990392598624996,
+    "std2": 0.6311768368457027,
+    "cov": 0.20380912899726106,
+    "corr": 0.5390354083899194,
+    "excess_kurtosis1": -0.428987828378252,
+    "excess_kurtosis2": -0.3225921538462746,
+    "kappa_1122_over_var1var2": -0.1835249358639238,
+    "std_rel_mode": 0.41809925629725525
+  },
+  "kappa_1122_over_var1var2": -0.1835249358639238,
+  "kappa_1122_over_var1var2_gaussian_copula_null": -0.111870237401177,
+  "kappa_1122_unexplained_magnitude": 0.07165469846274679,
+  "gaussian_copula_r": 0.5398428034057792,
+  "target_sha256": "4676668178c1b2c969407be8882654bb6ab87db54bc986601314a6b03282d69c",
+  "constants_sha256": "90476ad88707fea9e2a38df56daa6dcf0acdb8bcbdf13eb1b2523014fa8b5d3c"
+}

@@ -1,0 +1,47 @@
+{
+  "environment": {
+    "hostname": "gnode009.cluster",
+    "python": "3.9.7",
+    "slurm_job_id": "340735",
+    "slurm_partition": "dept.appliedmath",
+    "slurm_exclusive": null,
+    "cuda_visible_devices": "0,1",
+    "torch": "2.0.1+cu118",
+    "gpu_name": "NVIDIA A100 80GB PCIe",
+    "gpu_memory_GB": 85.1181568,
+    "gpu_count_visible": 2,
+    "cuda": "11.8"
+  },
+  "step": [
+    {
+      "layers": 2,
+      "hidden": 10,
+      "params": 1542,
+      "loss_balancing": false,
+      "n_f": 3,
+      "d_in": 2,
+      "batch": 400,
+      "l_seq": 200,
+      "warmup_steps": 200,
+      "s_per_iter": 0.010541609488427639,
+      "iqr": 1.7152749933302402e-05,
+      "s_forward": 0.0010730710346251726,
+      "s_loss_only": 0.0019321609288454056
+    },
+    {
+      "layers": 2,
+      "hidden": 10,
+      "params": 1542,
+      "loss_balancing": true,
+      "n_f": 3,
+      "d_in": 2,
+      "batch": 400,
+      "l_seq": 200,
+      "warmup_steps": 200,
+      "s_per_iter": 0.011292496579699218,
+      "iqr": 1.598766539245844e-05,
+      "s_forward": 0.0011196380946785212,
+      "s_loss_only": 0.0023096215445548296
+    }
+  ]
+}

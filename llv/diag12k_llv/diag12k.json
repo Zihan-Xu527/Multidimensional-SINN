@@ -1,0 +1,202 @@
+{
+  "stage": "diagnostic, N = 12000, both segments",
+  "purpose": [
+    "is the continuation residual oscillation present in the initial segment too",
+    "do the two segments' densities agree about equally well",
+    "does the oscillation survive N = 400 -> N = 12000"
+  ],
+  "diagnostic_only": true,
+  "changes_formal_evaluation": false,
+  "retrained_anything": false,
+  "reclassified_anything": false,
+  "reselected_checkpoint": false,
+  "feeds_the_figure_builder": false,
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "representative_selection_sha256": "a5a1c8aa2db5b1f4685ba75448791063e3dda86b4c8c789adac04fd628699045",
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "checkpoint_file_sha256": "bf4746337b3b1b0df764da9e756d4c7b5a143cca6380bb982ac0c18112f92dfd",
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_model.py": "e372399a2269bcd4f504b822b08bf34c033949113691bac7d77e5837801b0e69",
+    "llv_density.py": "4ee52d6685a6be0b60835d74eea3e17ef0813b91f531e31255732617d543bfaf",
+    "llv_diag_12k.py": "ee289eb2524ce87ff8b9e63c94804f7c409be9d49d2430126a74fe9a03069a61"
+  },
+  "ensemble": {
+    "N": 12000,
+    "prose_symbol": "N",
+    "stream": "density_visualization",
+    "seed": 5201,
+    "raw_rollout": 1200,
+    "warmup_discarded": [
+      0,
+      400
+    ],
+    "retained": "800 steps, continuous, no reset at the join",
+    "reused_saved_rollout": false,
+    "same_ensemble_as": "the Supplementary density figure"
+  },
+  "segments_never_concatenated": true,
+  "segments": {
+    "in": {
+      "segment": "G_in",
+      "role": "scored",
+      "retained_time": [
+        1,
+        400
+      ],
+      "archive_window": [
+        400,
+        800
+      ],
+      "n_sinn": 12000,
+      "n_target": 12000,
+      "correlation": {
+        "estimator": "S.corr_paircount on the 400-step block, divisor N(400 - k)",
+        "already_pair_count_normalised": true,
+        "converted_again": false,
+        "lag_range": [
+          0,
+          399
+        ],
+        "oscillation": {
+          "ACF_A": {
+            "target_amplitude_beyond_lag": 0.15028491491241028,
+            "sinn_amplitude_beyond_lag": 0.14451957656617673,
+            "amplitude_ratio": 0.9616372784348067,
+            "rms_difference_beyond_lag": 0.00456202333946149,
+            "max_abs_difference": 0.03299234162241446,
+            "max_abs_difference_lag": 27
+          },
+          "ACF_B": {
+            "target_amplitude_beyond_lag": 0.1498422914950034,
+            "sinn_amplitude_beyond_lag": 0.14457667623979828,
+            "amplitude_ratio": 0.9648589513503223,
+            "rms_difference_beyond_lag": 0.003703425239417443,
+            "max_abs_difference": 0.03696594642135398,
+            "max_abs_difference_lag": 41
+          },
+          "CCF_AB": {
+            "target_amplitude_beyond_lag": 0.1627226124575979,
+            "sinn_amplitude_beyond_lag": 0.16016495197567437,
+            "amplitude_ratio": 0.9842820832132966,
+            "rms_difference_beyond_lag": 0.004255131471389272,
+            "max_abs_difference": 0.038736863558058054,
+            "max_abs_difference_lag": 9
+          },
+          "CCF_BA": {
+            "target_amplitude_beyond_lag": 0.15321830687637059,
+            "sinn_amplitude_beyond_lag": 0.14444278537032665,
+            "amplitude_ratio": 0.9427253721507002,
+            "rms_difference_beyond_lag": 0.004990142596837876,
+            "max_abs_difference": 0.04477829159821328,
+            "max_abs_difference_lag": 19
+          }
+        }
+      },
+      "density": {
+        "joint_max_abs_difference_over_target_peak": 0.07021538710784593,
+        "joint_L1_difference": 0.061796800395900034,
+        "marginal": {
+          "A": {
+            "max_abs_difference_over_peak": 0.0365697878561312,
+            "L1_difference": 0.033890533200215026
+          },
+          "B": {
+            "max_abs_difference_over_peak": 0.0323059879994471,
+            "L1_difference": 0.039677888186112606
+          }
+        },
+        "normalised_by": "the target peak of THIS segment"
+      }
+    },
+    "out": {
+      "segment": "G_out",
+      "role": "continuation",
+      "retained_time": [
+        401,
+        800
+      ],
+      "archive_window": [
+        800,
+        1200
+      ],
+      "n_sinn": 12000,
+      "n_target": 12000,
+      "correlation": {
+        "estimator": "S.corr_paircount on the 400-step block, divisor N(400 - k)",
+        "already_pair_count_normalised": true,
+        "converted_again": false,
+        "lag_range": [
+          0,
+          399
+        ],
+        "oscillation": {
+          "ACF_A": {
+            "target_amplitude_beyond_lag": 0.15245517165104353,
+            "sinn_amplitude_beyond_lag": 0.13543314404075185,
+            "amplitude_ratio": 0.8883473258010978,
+            "rms_difference_beyond_lag": 0.006675390242374888,
+            "max_abs_difference": 0.03674299811241616,
+            "max_abs_difference_lag": 41
+          },
+          "ACF_B": {
+            "target_amplitude_beyond_lag": 0.15122431251945317,
+            "sinn_amplitude_beyond_lag": 0.13698752101079514,
+            "amplitude_ratio": 0.9058564640072234,
+            "rms_difference_beyond_lag": 0.006579037854688028,
+            "max_abs_difference": 0.039783181212672325,
+            "max_abs_difference_lag": 41
+          },
+          "CCF_AB": {
+            "target_amplitude_beyond_lag": 0.16302828322060955,
+            "sinn_amplitude_beyond_lag": 0.15143968752886558,
+            "amplitude_ratio": 0.9289166550563358,
+            "rms_difference_beyond_lag": 0.004397383793213567,
+            "max_abs_difference": 0.04025341916312353,
+            "max_abs_difference_lag": 9
+          },
+          "CCF_BA": {
+            "target_amplitude_beyond_lag": 0.1524938843377987,
+            "sinn_amplitude_beyond_lag": 0.1350909254908011,
+            "amplitude_ratio": 0.8858776604545844,
+            "rms_difference_beyond_lag": 0.004962340749097107,
+            "max_abs_difference": 0.04600555691743094,
+            "max_abs_difference_lag": 19
+          }
+        }
+      },
+      "density": {
+        "joint_max_abs_difference_over_target_peak": 0.07455304538557923,
+        "joint_L1_difference": 0.06464751181188269,
+        "marginal": {
+          "A": {
+            "max_abs_difference_over_peak": 0.039601343709179,
+            "L1_difference": 0.036487529221308886
+          },
+          "B": {
+            "max_abs_difference_over_peak": 0.033101124267964875,
+            "L1_difference": 0.041648796830484724
+          }
+        },
+        "normalised_by": "the target peak of THIS segment"
+      }
+    }
+  },
+  "artifacts": {
+    "curves": {
+      "path": "/home/zxu64/llv/diag12k_llv/diag12k_curves.npz",
+      "sha256": "82bc6c83078d792c4d62b3ffb06a374736adb91d3c394d95595960c62621b510"
+    },
+    "density": {
+      "path": "/home/zxu64/llv/diag12k_llv/diag12k_density.npz",
+      "sha256": "336df468e5b3acc4b27ae0e5ca3ef0ce03217f02fbfbff2d1fa0d548aad84397"
+    }
+  },
+  "caveat": "the per-family paired losses of the formal evaluation are not evidence that any individual curve or contour agrees; the numbers here describe the curves and densities themselves",
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda"
+}

@@ -1,0 +1,586 @@
+{
+  "stage": "10^6-step stability evaluator",
+  "specification": "section5.2-cleaned-specification.md (2026-10-06)",
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "representative_selection_sha256": "a5a1c8aa2db5b1f4685ba75448791063e3dda86b4c8c789adac04fd628699045",
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "checkpoint_reselected": false,
+  "checkpoint_path": "/home/zxu64/llv/formal_llv/run_201.pt",
+  "checkpoint_file_sha256": "bf4746337b3b1b0df764da9e756d4c7b5a143cca6380bb982ac0c18112f92dfd",
+  "verification": {
+    "selection_file_sha256_matches_recorded": true,
+    "run_id_matches_selection": true,
+    "checkpoint_iteration_matches_selection": true,
+    "checkpoint_file_sha256_compared_against_frozen_value": false,
+    "note": "the frozen selection does not record a checksum of the checkpoint file itself, so the checkpoint's SHA was not compared against any frozen value. What was verified is the selection file's own SHA against its recorded checksum, the run id, and the checkpoint iteration. The checkpoint file's current SHA is recorded above for provenance."
+  },
+  "degenerate_window_selftest": {
+    "all_nonfinite_window": {
+      "nonfinite_rate": 1.0,
+      "invalid_rate": 1.0,
+      "max_exceedance": NaN,
+      "physical_range_rho_A": [
+        NaN,
+        NaN
+      ],
+      "physical_range_rho_B": [
+        NaN,
+        NaN
+      ]
+    },
+    "mixed_window": {
+      "first_nonfinite_step": 5,
+      "first_violation_step": 7,
+      "max_exceedance": 0.2
+    }
+  },
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_gates.py": "0a9f5f0ac578b230210c4f79071cd33f9e31ca469805d430584e7ac0fc154ea2",
+    "llv_torch.py": "c390ec5888f5439db051b645974f160be82c397ecf2d0d3d04ae35e2beff223e",
+    "llv_model.py": "e372399a2269bcd4f504b822b08bf34c033949113691bac7d77e5837801b0e69",
+    "llv_stability.py": "ed29201090c34d2b46c421fd834f846e31d03d7a15c20108b4e1d169afcea0cb"
+  },
+  "protocol": {
+    "ensemble_size_N": 50,
+    "warmup_steps_discarded": 400,
+    "evaluated_steps": 1000000,
+    "state_reset": "never, at any point after the warm-up",
+    "post_processing": "no clipping, no projection, no rounding to N_site^-1",
+    "generation_chunk": 10000,
+    "chunking_note": "chunking only bounds memory. The recurrent state is carried across every chunk boundary, and each chunk's noise comes from successive draws on the same continuously advanced generator stream, so no draw is reused and none is skipped. No claim is made that the chunked draws are bit-identical to one single large draw; that was not tested and the protocol does not require it.",
+    "stability_stream_seed": 6201,
+    "retained_windows_at": [
+      100000,
+      200000,
+      300000,
+      400000,
+      500000,
+      600000,
+      700000,
+      800000,
+      900000,
+      1000000
+    ],
+    "retained_window_length": 10000,
+    "blocks_per_window": 25,
+    "analysis_blocks_per_window": 1250,
+    "block_length_T": 400,
+    "K_lags": 400,
+    "kde": {
+      "grid_n": 513,
+      "bandwidth": 0.091028210151304
+    },
+    "target": "fixed T_ev,in family statistics"
+  },
+  "reporting_symbol": {
+    "ensemble_size": 50,
+    "prose_symbol": "N",
+    "note": "human-readable output uses N = 50; the symbol B is not used for an ensemble size anywhere."
+  },
+  "online_accumulation": {
+    "n_state_time_samples": 50000000,
+    "n_nonfinite": 0,
+    "n_finite_violating": 0,
+    "nonfinite_rate": 0.0,
+    "constraint_rate": 0.0,
+    "invalid_rate": 0.0,
+    "max_exceedance": 0.0,
+    "max_exceedance_raw_over_finite": -0.05248546204380378,
+    "first_nonfinite_step": null,
+    "first_violation_step": null,
+    "accumulated_over": "all 1000000 evaluated post-warm-up steps"
+  },
+  "retained_windows": [
+    {
+      "checkpoint_step": 100000,
+      "window_steps": [
+        90001,
+        100000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.004555717565371301,
+        "B": 0.03596533439755322
+      },
+      "pooled_sd_x": {
+        "A": 0.9584661387012232,
+        "B": 0.9626128962743874
+      },
+      "physical_range": {
+        "rho_A": [
+          0.05544779020474852,
+          0.20641738207880972
+        ],
+        "rho_B": [
+          0.2666145321501785,
+          0.44868077620857066
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0016506603038387408,
+        "CCF": 0.0019703810942155167,
+        "ACF2": 0.0031613887802174087,
+        "PDF": 0.0013038075244002933,
+        "PROJ": 0.001205139336522784
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 200000,
+      "window_steps": [
+        190001,
+        200000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.011897043394626104,
+        "B": 0.03251213290527863
+      },
+      "pooled_sd_x": {
+        "A": 0.9623315025578036,
+        "B": 0.9709599972069218
+      },
+      "physical_range": {
+        "rho_A": [
+          0.05372011370823612,
+          0.20635300199718065
+        ],
+        "rho_B": [
+          0.26364050231803393,
+          0.44911038201626696
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0020263824101635253,
+        "CCF": 0.002525573464046706,
+        "ACF2": 0.003173789951625407,
+        "PDF": 0.0009046674765081269,
+        "PROJ": 0.0008009021929202149
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 300000,
+      "window_steps": [
+        290001,
+        300000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.008143796983251007,
+        "B": 0.04077463789802768
+      },
+      "pooled_sd_x": {
+        "A": 0.9660726404486638,
+        "B": 0.9722820319576561
+      },
+      "physical_range": {
+        "rho_A": [
+          0.05534955699248473,
+          0.21032989326873264
+        ],
+        "rho_B": [
+          0.2669237554595325,
+          0.45092961001361337
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.002252449243257964,
+        "CCF": 0.0028501111861026053,
+        "ACF2": 0.00345669789937328,
+        "PDF": 0.0009428599978991901,
+        "PROJ": 0.0008544090920465434
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 400000,
+      "window_steps": [
+        390001,
+        400000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.007448608937797035,
+        "B": 0.03699374749678597
+      },
+      "pooled_sd_x": {
+        "A": 0.9568422837260493,
+        "B": 0.9651010656284718
+      },
+      "physical_range": {
+        "rho_A": [
+          0.058936696314730974,
+          0.21103312586147024
+        ],
+        "rho_B": [
+          0.26698609338059565,
+          0.44910424319096576
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0020507877900821647,
+        "CCF": 0.0023372091086830736,
+        "ACF2": 0.004330263264464104,
+        "PDF": 0.0012501575572570177,
+        "PROJ": 0.001149426699731564
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 500000,
+      "window_steps": [
+        490001,
+        500000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.01502381043112406,
+        "B": 0.03147458703077293
+      },
+      "pooled_sd_x": {
+        "A": 0.9616093730310612,
+        "B": 0.9668393140263126
+      },
+      "physical_range": {
+        "rho_A": [
+          0.0564390150796443,
+          0.20704505624565078
+        ],
+        "rho_B": [
+          0.2644535701439302,
+          0.44906542608672
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0021588718757749193,
+        "CCF": 0.0026350820683823852,
+        "ACF2": 0.003168050676659667,
+        "PDF": 0.0011850737981887046,
+        "PROJ": 0.001094223201345733
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 600000,
+      "window_steps": [
+        590001,
+        600000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.010449164888930478,
+        "B": 0.030733079822263205
+      },
+      "pooled_sd_x": {
+        "A": 0.9562370534853653,
+        "B": 0.9611920495001469
+      },
+      "physical_range": {
+        "rho_A": [
+          0.05833914770644319,
+          0.20504884735906298
+        ],
+        "rho_B": [
+          0.2679437681488037,
+          0.4472248768895526
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.002574143420113257,
+        "CCF": 0.003207994324553164,
+        "ACF2": 0.0026291221029705685,
+        "PDF": 0.0012614955056681851,
+        "PROJ": 0.0011684940633528516
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 700000,
+      "window_steps": [
+        690001,
+        700000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.006384413984290042,
+        "B": 0.03344665339617781
+      },
+      "pooled_sd_x": {
+        "A": 0.9531187393298282,
+        "B": 0.9589376296413261
+      },
+      "physical_range": {
+        "rho_A": [
+          0.054501215087829555,
+          0.20913354134896103
+        ],
+        "rho_B": [
+          0.26744245145927437,
+          0.4492832049401969
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0020931412004052815,
+        "CCF": 0.002597228417370498,
+        "ACF2": 0.0030372454057327643,
+        "PDF": 0.0015468408019617553,
+        "PROJ": 0.0014598394091440779
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 800000,
+      "window_steps": [
+        790001,
+        800000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.009566921484103994,
+        "B": 0.03785822037660028
+      },
+      "pooled_sd_x": {
+        "A": 0.9562965084861706,
+        "B": 0.9624283397832091
+      },
+      "physical_range": {
+        "rho_A": [
+          0.05710036941932323,
+          0.20667702031654234
+        ],
+        "rho_B": [
+          0.2673228638886096,
+          0.450319746999301
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0021474602124023083,
+        "CCF": 0.0026790026999739262,
+        "ACF2": 0.002497199942735817,
+        "PDF": 0.0015988549263779013,
+        "PROJ": 0.0014849202248719748
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 900000,
+      "window_steps": [
+        890001,
+        900000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.010809901693085594,
+        "B": 0.03226686227584079
+      },
+      "pooled_sd_x": {
+        "A": 0.9589162194429948,
+        "B": 0.9652234266233962
+      },
+      "physical_range": {
+        "rho_A": [
+          0.057750574360137516,
+          0.20667627387407367
+        ],
+        "rho_B": [
+          0.2686829299568252,
+          0.4488200083303697
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0030893946945340176,
+        "CCF": 0.0035387781845331585,
+        "ACF2": 0.005284124669683256,
+        "PDF": 0.001124632988258732,
+        "PROJ": 0.0010355217842514283
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    },
+    {
+      "checkpoint_step": 1000000,
+      "window_steps": [
+        990001,
+        1000000
+      ],
+      "n_analysis_blocks": 1250,
+      "block_length": 400,
+      "pooled_mean_x": {
+        "A": 0.010522743343449596,
+        "B": 0.031015769354816477
+      },
+      "pooled_sd_x": {
+        "A": 0.9593325357455256,
+        "B": 0.9660796805842395
+      },
+      "physical_range": {
+        "rho_A": [
+          0.055894920782737306,
+          0.20778557758945942
+        ],
+        "rho_B": [
+          0.26363918919338447,
+          0.4495685999583475
+        ]
+      },
+      "admissibility": {
+        "nonfinite_rate": 0.0,
+        "constraint_rate": 0.0,
+        "invalid_rate": 0.0,
+        "max_exceedance": 0.0,
+        "n_samples": 500000
+      },
+      "family_loss_vs_T_ev_in": {
+        "ACF": 0.0016447752464756272,
+        "CCF": 0.0017982674235240866,
+        "ACF2": 0.004269244829736869,
+        "PDF": 0.0011280724844109666,
+        "PROJ": 0.0010375735712864062
+      },
+      "loss_note": "no reference denominator, no threshold, not an accuracy statement about the 10^6-step run"
+    }
+  ],
+  "drift_description": {
+    "pooled_mean_x_A": {
+      "min": 0.004555717565371301,
+      "max": 0.01502381043112406,
+      "range": 0.01046809286575276,
+      "median": 0.010008043186517237
+    },
+    "pooled_mean_x_B": {
+      "min": 0.030733079822263205,
+      "max": 0.04077463789802768,
+      "range": 0.010041558075764477,
+      "median": 0.03297939315072822
+    },
+    "pooled_sd_x_A": {
+      "min": 0.9531187393298282,
+      "max": 0.9660726404486638,
+      "range": 0.012953901118835653,
+      "median": 0.958691179072109
+    },
+    "pooled_sd_x_B": {
+      "min": 0.9589376296413261,
+      "max": 0.9722820319576561,
+      "range": 0.01334440231632994,
+      "median": 0.9651622461259339
+    },
+    "family_loss": {
+      "ACF": {
+        "min": 0.0016447752464756272,
+        "max": 0.0030893946945340176,
+        "range": 0.0014446194480583904,
+        "median": 0.002120300706403795
+      },
+      "CCF": {
+        "min": 0.0017982674235240866,
+        "max": 0.0035387781845331585,
+        "range": 0.001740510761009072,
+        "median": 0.0026161552428764414
+      },
+      "ACF2": {
+        "min": 0.002497199942735817,
+        "max": 0.005284124669683256,
+        "range": 0.0027869247269474394,
+        "median": 0.0031709203141425373
+      },
+      "PDF": {
+        "min": 0.0009046674765081269,
+        "max": 0.0015988549263779013,
+        "range": 0.0006941874498697744,
+        "median": 0.0012176156777228611
+      },
+      "PROJ": {
+        "min": 0.0008009021929202149,
+        "max": 0.0014849202248719748,
+        "range": 0.0006840180319517599,
+        "median": 0.0011218249505386484
+      }
+    },
+    "note": "descriptive spread across the ten retained windows. No threshold is defined and none is applied; whether this constitutes drift is a reporting judgement, not a test."
+  },
+  "units": "the ten family losses are squared relative discrepancies against a fixed target; they carry no reference denominator and no r_s is defined here",
+  "claim_boundary": "this reports stability of one validation-selected checkpoint. It supplies neither a success criterion nor evidence of 10^6-step target accuracy.",
+  "figure_policy": "one compact Supplementary table by default; a stability figure only if there is clear temporal drift",
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda",
+  "dtype": "float64",
+  "wall_seconds": 21.383856296539307
+}

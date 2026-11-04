@@ -1,0 +1,176 @@
+{
+  "stage": "calibration",
+  "specification": "section5.2-cleaned-specification.md (2026-10-06)",
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_path": "/data/zxu64/LLV_KMC_20k/llv_theta_T1200_B20000.npz",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_dir": "/home/zxu64/llv/llv_manifest_v2",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_gates.py": "0a9f5f0ac578b230210c4f79071cd33f9e31ca469805d430584e7ac0fc154ea2",
+    "llv_calibrate.py": "5349aaa4f318ea2184e164ed18aa075c29e1ce50da98fe32fa0241ef0ad3dbff"
+  },
+  "standardization": {
+    "mu": [
+      0.12161335373590701,
+      0.35517476936476305
+    ],
+    "s": [
+      0.02254460255677758,
+      0.027239873218375576
+    ]
+  },
+  "stationarity": {
+    "source": "gate 10 of llv_manifest_v2, carried through unchanged",
+    "procedure": "verify_and_calibrate_v2.py, frozen",
+    "reads": "validation halves only",
+    "L_squared": {
+      "ACF": 0.00036861918707172946,
+      "ACF2": 0.000845951483424082,
+      "CCF": 0.000396517018033422
+    },
+    "d_win": {
+      "ACF": 0.019199457989009207,
+      "ACF2": 0.029085245115420325,
+      "CCF": 0.01991273507164252
+    },
+    "d_win_tolerance": 0.1,
+    "d_win_tolerance_kind": "fixed operational tolerance, not a quantile",
+    "display_precision": "paper shows 4 decimals; stored values are full float64",
+    "frozen_reference": {
+      "d_win": {
+        "ACF": 0.0192,
+        "ACF2": 0.0291,
+        "CCF": 0.0199
+      },
+      "diagnostics": {
+        "ks": [
+          0.0234,
+          0.0337
+        ],
+        "mean": [
+          0.0407,
+          0.1141
+        ],
+        "variance": [
+          0.0782,
+          0.1692
+        ]
+      }
+    },
+    "late_reference_t": [
+      901,
+      1200
+    ],
+    "limit_kind": {
+      "ks": "empirical 95th-percentile cutoff over 200 sampled late time points; not a trajectory bootstrap",
+      "mean": "95th percentile, 200 whole-trajectory resamples, max over t = 901..1200 and both components",
+      "variance": "95th percentile, same resampling"
+    },
+    "limits": {
+      "ks": 0.03368758333333334,
+      "mean": 0.11413603994406414,
+      "variance": 0.1692412367555961
+    },
+    "n_replicates": 200,
+    "observed": {
+      "ks": 0.02341833333333332,
+      "mean": 0.04070251340449613,
+      "variance": 0.0781954910764322
+    },
+    "reference_half": [
+      4000,
+      6000
+    ],
+    "scales": "d_win is unsquared (spec 3.1); L_squared is the spec 4 family loss; (d_win)^2 == L_squared",
+    "seed": 20260913,
+    "tested_half": [
+      6000,
+      8000
+    ],
+    "tested_t": 400
+  },
+  "long_lag_envelope": {
+    "eps_lag": 0.052594347349555474,
+    "quantile": 0.95,
+    "factor": 1.0,
+    "no_multiplier": "no factor of three and no pointwise band",
+    "n_boot": 2000,
+    "block_size": 400,
+    "resampling": "trajectory-level, with replacement, each trajectory's complete 800-step dependence preserved",
+    "pool": {
+      "indices": [
+        400,
+        4000
+      ],
+      "n_trajectories": 3600,
+      "source": "R = union_j R_j"
+    },
+    "compared_against": {
+      "set": "V",
+      "indices": [
+        4000,
+        8000
+      ]
+    },
+    "interval": {
+      "array_slice": [
+        400,
+        1200
+      ],
+      "physical_t": [
+        401,
+        1200
+      ],
+      "length": 800
+    },
+    "estimator": "pair-count normalized, divisor B*(800 - k); means and s.d. per ensemble, never borrowed from F",
+    "lag_range": [
+      400,
+      600
+    ],
+    "k_hi_justification": "800 - k >= (800 - 400)/2, so every reported lag keeps at least 200 time pairs per trajectory",
+    "curves": [
+      "ACF_A",
+      "ACF_B",
+      "CCF_AB",
+      "CCF_BA"
+    ],
+    "acf2_excluded": true,
+    "seed": 7000,
+    "M_ref_summary": {
+      "min": 0.011347932202425798,
+      "q05": 0.01934885869046734,
+      "median": 0.03322079241930963,
+      "q95": 0.052594347349555474,
+      "max": 0.07493413916424432,
+      "mean": 0.03423129658913356
+    },
+    "argmax_curve_counts": {
+      "ACF_A": 607,
+      "ACF_B": 502,
+      "CCF_AB": 403,
+      "CCF_BA": 488
+    },
+    "argmax_lag_summary": {
+      "min": 400,
+      "median": 538.0,
+      "max": 600
+    },
+    "curve_V_absmax": 0.011061912562953408,
+    "wall_seconds": 1.676417589187622
+  },
+  "reads": [
+    "R_j",
+    "V"
+  ],
+  "never_reads": [
+    "T_ev"
+  ],
+  "depends_on_training": false,
+  "note": "every threshold here was predeclared in the frozen specification; none of it was derived from, or adjusted after, any development, pilot or formal training outcome",
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda"
+}

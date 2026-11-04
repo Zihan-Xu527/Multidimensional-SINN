@@ -1,0 +1,232 @@
+{
+  "stage": "reporting population and representative selection",
+  "rule": "sort validation-successful runs by stored checkpoint-monitoring Q_val ascending; take zero-based element M // 2 (one-based rank floor(M/2) + 1)",
+  "selected_before_T_ev_opened": true,
+  "M": 18,
+  "n_runs": 20,
+  "runs": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    219
+  ],
+  "accepted_mask": [
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "threshold": 10.0,
+  "threshold_inclusive": true,
+  "zero_based_index": 9,
+  "one_based_rank": 10,
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "representative_Q_val": 0.008888477724430861,
+  "representative_r_val_squared": 4.944558172775274,
+  "representative_r_val_unsquared": 2.2236362501037066,
+  "representative_worst_family": "PROJ",
+  "representative_seeds": {
+    "param_init": 201,
+    "train_noise": 1201,
+    "checkpoint_monitor": 2201,
+    "classification": 3201,
+    "final_generation": 4201,
+    "density_visualization": 5201,
+    "stability": 6201
+  },
+  "ordering": [
+    {
+      "index": 0,
+      "run": 217,
+      "Q_val": 0.005185548936129675,
+      "r_val_squared": 5.587407089362767,
+      "checkpoint_iteration": 6800
+    },
+    {
+      "index": 1,
+      "run": 210,
+      "Q_val": 0.005831423423045093,
+      "r_val_squared": 3.301683696975502,
+      "checkpoint_iteration": 8600
+    },
+    {
+      "index": 2,
+      "run": 200,
+      "Q_val": 0.00614277807014378,
+      "r_val_squared": 4.28535303645388,
+      "checkpoint_iteration": 9800
+    },
+    {
+      "index": 3,
+      "run": 214,
+      "Q_val": 0.006551201337564504,
+      "r_val_squared": 1.926677491096285,
+      "checkpoint_iteration": 6200
+    },
+    {
+      "index": 4,
+      "run": 206,
+      "Q_val": 0.007549481498782529,
+      "r_val_squared": 3.7921983057959014,
+      "checkpoint_iteration": 5200
+    },
+    {
+      "index": 5,
+      "run": 211,
+      "Q_val": 0.0075536353283419365,
+      "r_val_squared": 3.448828672411934,
+      "checkpoint_iteration": 9200
+    },
+    {
+      "index": 6,
+      "run": 215,
+      "Q_val": 0.007633935895220393,
+      "r_val_squared": 1.959168215090572,
+      "checkpoint_iteration": 9600
+    },
+    {
+      "index": 7,
+      "run": 204,
+      "Q_val": 0.00770959699980015,
+      "r_val_squared": 4.3429813450676,
+      "checkpoint_iteration": 6400
+    },
+    {
+      "index": 8,
+      "run": 219,
+      "Q_val": 0.008651342124469859,
+      "r_val_squared": 3.082650819935981,
+      "checkpoint_iteration": 9800
+    },
+    {
+      "index": 9,
+      "run": 201,
+      "Q_val": 0.008888477724430861,
+      "r_val_squared": 4.944558172775274,
+      "checkpoint_iteration": 7000
+    },
+    {
+      "index": 10,
+      "run": 202,
+      "Q_val": 0.008991451667280019,
+      "r_val_squared": 3.9241242438444868,
+      "checkpoint_iteration": 9800
+    },
+    {
+      "index": 11,
+      "run": 213,
+      "Q_val": 0.009058969572027127,
+      "r_val_squared": 2.5157870501169795,
+      "checkpoint_iteration": 8200
+    },
+    {
+      "index": 12,
+      "run": 207,
+      "Q_val": 0.009084579704732244,
+      "r_val_squared": 4.482810325670723,
+      "checkpoint_iteration": 7400
+    },
+    {
+      "index": 13,
+      "run": 218,
+      "Q_val": 0.009995819302625546,
+      "r_val_squared": 5.13973433438507,
+      "checkpoint_iteration": 8600
+    },
+    {
+      "index": 14,
+      "run": 209,
+      "Q_val": 0.01125145613940132,
+      "r_val_squared": 6.569251748385624,
+      "checkpoint_iteration": 9400
+    },
+    {
+      "index": 15,
+      "run": 205,
+      "Q_val": 0.012334327959677753,
+      "r_val_squared": 6.1640898566677444,
+      "checkpoint_iteration": 7200
+    },
+    {
+      "index": 16,
+      "run": 216,
+      "Q_val": 0.012909595596530736,
+      "r_val_squared": 3.8001872350491026,
+      "checkpoint_iteration": 9600
+    },
+    {
+      "index": 17,
+      "run": 212,
+      "Q_val": 0.01578983461988921,
+      "r_val_squared": 5.275243273970059,
+      "checkpoint_iteration": 9600
+    }
+  ],
+  "q_val_ties": [],
+  "rejected_runs": [
+    {
+      "run": 203,
+      "r_val_squared": 23.468830559865683,
+      "r_val_unsquared": 4.84446390840779,
+      "worst_family": "PROJ"
+    },
+    {
+      "run": 208,
+      "r_val_squared": 10.557549391440007,
+      "r_val_unsquared": 3.249238278649322,
+      "worst_family": "PROJ"
+    }
+  ],
+  "units": "r is a ratio of squared relative discrepancies; the unsquared ratio is sqrt(r). Q_val is a sum of squared relative discrepancies and is not normalized by L_ref",
+  "same_checkpoint_used_for": [
+    "every single-run figure",
+    "the smooth joint density",
+    "the 10^6-step stability diagnostic"
+  ],
+  "no_reselection": "no seed may be reselected after viewing final, out-of-window, density, long-lag or long-run results",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "class_dir": "/home/zxu64/llv/class_formal",
+  "runs_dir": "/home/zxu64/llv/formal_llv",
+  "reads": [
+    "stage-2 classification products",
+    "stage-1 histories"
+  ],
+  "never_reads": [
+    "T_ev"
+  ]
+}

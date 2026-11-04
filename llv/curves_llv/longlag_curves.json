@@ -1,0 +1,80 @@
+{
+  "stage": "long-lag curve export for the main-text figure",
+  "purpose": "stage 4 stored M_SINN but not the curves; the figure builder may only read saved products, so the curves are exported here",
+  "regenerated": "one rollout of the frozen representative checkpoint under stage 4's exact protocol",
+  "reclassified_anything": false,
+  "reselected_checkpoint": false,
+  "recomputed_any_summary_statistic": false,
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "representative_selection_sha256": "a5a1c8aa2db5b1f4685ba75448791063e3dda86b4c8c789adac04fd628699045",
+  "calibration_sha256": "e11f227e21bf796255825d302a115b823e4f5e04d53ac330fa3da584cc597689",
+  "final_evaluation_sha256": "c2b840549fed46118e860b52e70758da4039dc04d33b88013ee0d35a48b47812",
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "checkpoint_file_sha256": "bf4746337b3b1b0df764da9e756d4c7b5a143cca6380bb982ac0c18112f92dfd",
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_model.py": "e372399a2269bcd4f504b822b08bf34c033949113691bac7d77e5837801b0e69",
+    "llv_curves.py": "ed513d3842ecf36d451154b7cad75a808b4ee30655c6e493c9062bae45c15e1d"
+  },
+  "protocol": {
+    "ensemble_size_N": 400,
+    "prose_symbol": "N",
+    "raw_rollout": 1200,
+    "stream": "final_generation",
+    "seed": 4201,
+    "interval": "combined G_in u G_out, physical t = 401..1200",
+    "estimator": "pair-count normalized, divisor N(800 - k)",
+    "lag_range": [
+      400,
+      600
+    ],
+    "curve_order": [
+      "ACF_A",
+      "ACF_B",
+      "CCF_AB",
+      "CCF_BA"
+    ]
+  },
+  "band": {
+    "eps_lag": 0.052594347349555474,
+    "form": "C_target(k) +/- eps_lag, equal width at every lag",
+    "provenance": "calibrated on the validation side from R versus V in stage 3, before T_ev was opened; not from final data",
+    "no_multiplier": true
+  },
+  "cross_check_vs_stage_4": {
+    "M_SINN": 0.031664586171512174,
+    "M_SINN_stage_4": 0.031664586171512174,
+    "absolute_difference": 0.0,
+    "argmax_curve": "ACF_A",
+    "argmax_lag": 474,
+    "identical": true
+  },
+  "M_SINN_over_eps_lag": 0.6020530297878067,
+  "figure_requirements": {
+    "panels": [
+      "ACF_A",
+      "ACF_B",
+      "CCF_AB",
+      "CCF_BA"
+    ],
+    "x_axis_ends_at": 600,
+    "mark_lag": 400,
+    "target_label": "Target",
+    "model_label": "SINN",
+    "caption_must_state": [
+      "the representative run's seed",
+      "M_SINN / eps_lag = 0.602",
+      "the band was calibrated from R-versus-V, not from final data"
+    ]
+  },
+  "artifact": {
+    "path": "/home/zxu64/llv/curves_llv/longlag_curves.npz",
+    "sha256": "ded67236de54443cb944e42633c17916c53ffa6bfb3a1c928606a4cb26a9de1c"
+  },
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda"
+}

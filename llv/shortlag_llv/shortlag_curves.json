@@ -1,0 +1,90 @@
+{
+  "stage": "short-lag G_out correlation export for the main-text figure",
+  "purpose": "the main-text correlation figure shows the scored lag range; stage 4 stored the ACF and CCF losses but not the curves, and the figure builder may only read saved products",
+  "regenerated": "one deterministic rollout of the frozen representative checkpoint under stage 4's exact protocol",
+  "retrained_anything": false,
+  "rebuilt_archive": false,
+  "reclassified_anything": false,
+  "reselected_checkpoint": false,
+  "changed_accepted_mask": false,
+  "recomputed_any_endpoint_summary": false,
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "representative_selection_sha256": "a5a1c8aa2db5b1f4685ba75448791063e3dda86b4c8c789adac04fd628699045",
+  "final_evaluation_sha256": "c2b840549fed46118e860b52e70758da4039dc04d33b88013ee0d35a48b47812",
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "checkpoint_file_sha256": "bf4746337b3b1b0df764da9e756d4c7b5a143cca6380bb982ac0c18112f92dfd",
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_model.py": "e372399a2269bcd4f504b822b08bf34c033949113691bac7d77e5837801b0e69",
+    "llv_shortlag.py": "7b87b4c1130aa6e3f3368d6577695de236b74b5fdacbb988630ccdf43457fac9"
+  },
+  "protocol": {
+    "ensemble_size_N": 400,
+    "prose_symbol": "N",
+    "raw_rollout": 1200,
+    "stream": "final_generation",
+    "seed": 4201,
+    "window": "G_out, raw [800, 1200), physical t = 801..1200",
+    "continuous": "the recurrent state is carried through raw step 800; G_out is not a fresh rollout",
+    "estimator": "S.corr_window, window-normalized, divisor N*T at every lag, pooled means and pooled s.d. per ensemble",
+    "estimator_note": "this is the estimator the ACF and CCF family losses use; the pair-count long-lag estimator is not used in this figure",
+    "coordinates": "standardized, mu and s from the frozen manifest",
+    "lag_range": [
+      0,
+      399
+    ],
+    "curve_order": [
+      "ACF_A",
+      "ACF_B",
+      "CCF_AB",
+      "CCF_BA"
+    ]
+  },
+  "cross_check_vs_stage_4": {
+    "window": "G_out",
+    "families": [
+      "ACF",
+      "CCF"
+    ],
+    "L_here": {
+      "ACF": 0.00339190032695443,
+      "CCF": 0.003991656477595738
+    },
+    "L_stage_4": {
+      "ACF": 0.00339190032695443,
+      "CCF": 0.003991656477595738
+    },
+    "absolute_difference": {
+      "ACF": 0.0,
+      "CCF": 0.0
+    },
+    "identical": true,
+    "note": "the ACF array is [C_AA, C_BB] and the CCF array is [C_AB, C_BA], the frozen family order"
+  },
+  "figure_requirements": {
+    "panels": [
+      "ACF_A",
+      "ACF_B",
+      "CCF_AB",
+      "CCF_BA"
+    ],
+    "x_axis": [
+      0,
+      399
+    ],
+    "envelope": false,
+    "envelope_note": "no finite-sample envelope is drawn in this figure",
+    "target_label": "Target",
+    "model_label": "SINN"
+  },
+  "artifact": {
+    "path": "/home/zxu64/llv/shortlag_llv/shortlag_curves.npz",
+    "sha256": "8b5703b184b5d64cc1b43f12091360d5f708974bc2e4be1e1848e38d58526109"
+  },
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda"
+}

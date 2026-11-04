@@ -1,0 +1,112 @@
+{
+  "stage": "Supplementary joint-density data (spec 10.1)",
+  "role": "visualization only; enters no numerical summary, no loss, no ratio, no threshold and no decision",
+  "figure_drawn_here": false,
+  "figure_note": "the figure is drawn by the figure builder, which reads only saved evaluation products",
+  "specification_sha256": "900012ead137e0bae82b6afabd41c98ec7cae081c33f6c1c10ecacfb67959065",
+  "archive_sha256": "8aa202a3333facf6bbe110e55590d2c1f0e705f0c52e2a6d812a6405a0260eb8",
+  "manifest_sha256": "7370edd22ab2c8c5f54854624bd18e9e63e20b1287051b9e068f9f01e8f3c986",
+  "representative_selection_sha256": "a5a1c8aa2db5b1f4685ba75448791063e3dda86b4c8c789adac04fd628699045",
+  "representative_run": 201,
+  "representative_checkpoint_iteration": 7000,
+  "checkpoint_path": "/home/zxu64/llv/formal_llv/run_201.pt",
+  "checkpoint_file_sha256": "bf4746337b3b1b0df764da9e756d4c7b5a143cca6380bb982ac0c18112f92dfd",
+  "checkpoint_reselected": false,
+  "source_sha256": {
+    "llv_spec.py": "11d4704e524c9d44f682cdc8012f8eb06ddf27e7524a31159965f33156c7fddf",
+    "llv_streams.py": "d6275fe204e4a1118dcc6c7ac23dd1002a9dcb1a94657cf77dd38c8a80777d49",
+    "llv_gates.py": "0a9f5f0ac578b230210c4f79071cd33f9e31ca469805d430584e7ac0fc154ea2",
+    "llv_model.py": "e372399a2269bcd4f504b822b08bf34c033949113691bac7d77e5837801b0e69",
+    "llv_density.py": "4ee52d6685a6be0b60835d74eea3e17ef0813b91f531e31255732617d543bfaf"
+  },
+  "ensemble": {
+    "N_vis": 12000,
+    "prose_symbol": "N_vis",
+    "raw_rollout": 1200,
+    "stream": "density_visualization",
+    "seed": 5201,
+    "discarded": [
+      0,
+      400
+    ],
+    "displayed_window": [
+      800,
+      1200
+    ],
+    "displayed_window_name": "G_out",
+    "separate_from_final_generation": true,
+    "note": "a separate ensemble from the final-evaluation rollout, drawn from its own stream"
+  },
+  "target": {
+    "set": "T_ev,out",
+    "indices": [
+      8000,
+      20000
+    ],
+    "window": [
+      800,
+      1200
+    ],
+    "n_trajectories": 12000
+  },
+  "reference_blocks_used": false,
+  "estimators": {
+    "bivariate": "literal separable Gaussian kernel sum at h2, evaluated chunk-wise as A @ B.T; no binning, no FFT",
+    "marginal": "the canonical 1D Gaussian kernel sum at h",
+    "grid": [
+      -5.0,
+      5.0
+    ],
+    "grid_n": 513,
+    "coordinates": "computed in standardized (x_A, x_B)"
+  },
+  "physical_transform": {
+    "axes": "rho_i = s_i x_i + mu_i",
+    "bivariate_density": "f_rho = f_x / (s_A s_B)",
+    "marginal_density": "f_rho_i = f_x_i / s_i",
+    "jacobian_bivariate": 1628.3671579090144,
+    "jacobian_marginal": [
+      44.35651493440811,
+      36.710890391568206
+    ]
+  },
+  "panel_labels": [
+    "Target",
+    "SINN"
+  ],
+  "forbidden_label": "Reference",
+  "label_note": "the two panels are labelled Target and SINN; the word Reference must not appear in this figure or caption",
+  "marginal_consistency_check": {
+    "Target": {
+      "x_A": {
+        "relative_l2": 5.180394208415753e-06,
+        "max_abs": 2.1459885820585e-06,
+        "integral_of_1d_kde": 0.9999689121735341
+      },
+      "x_B": {
+        "relative_l2": 3.22583185595271e-05,
+        "max_abs": 1.353253849945002e-05,
+        "integral_of_1d_kde": 0.9999943713552686
+      }
+    },
+    "SINN": {
+      "x_A": {
+        "relative_l2": 8.232752523926339e-16,
+        "max_abs": 5.551115123125783e-16,
+        "integral_of_1d_kde": 1.0000000000000002
+      },
+      "x_B": {
+        "relative_l2": 1.025426845575019e-15,
+        "max_abs": 8.881784197001252e-16,
+        "integral_of_1d_kde": 1.0000000000000002
+      }
+    }
+  },
+  "check_note": "integrating the separable bivariate kernel over one coordinate equals the 1D Gaussian KDE at the same bandwidth, so this validates the matmul formulation. It is a correctness check, not a statistical result.",
+  "artifact": {
+    "path": "/home/zxu64/llv/density_llv/joint_density.npz",
+    "sha256": "9c19e74167cf10c602a030832d6315a47e6e08851b7b431bb70958fe8ca1001d"
+  },
+  "torch_version": "2.0.1+cu118",
+  "device": "cuda"
+}

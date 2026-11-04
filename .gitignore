@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+*.pt
+*.pth
+*.log
+*.out
+*.err
+fpu/runs/
+fpu/fpu_data/
+llv/formal_llv/
+llv/runs_llv/
+llv/preview_figures/
+llv/preview_stage_figures/
